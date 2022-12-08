@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <h1>
+      Join #<%= @the_join.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/joins">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_join/<%= @the_join.id %>">
+          Delete join
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_join.user_id %>
+      </dd>
+
+      <dt>
+        Workout
+      </dt>
+      <dd>
+        <%= @the_join.workout_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_join.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_join.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit join
+    </h2>
+
+    <form action="/modify_join/<%= @the_join.id %>"  method="post" >
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_join.user_id %>">
+      </div>
+
+      <div>
+        <label for="workout_id_box">
+          Workout
+        </label>
+
+        <input type="text" id="workout_id_box" name="query_workout_id" value="<%= @the_join.workout_id %>">
+      </div>
+
+      <button>
+        Update join
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

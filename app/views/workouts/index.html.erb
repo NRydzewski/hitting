@@ -1,0 +1,175 @@
+<div>
+  <div>
+    <h1>
+      x's Workouts
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new workout
+    </h2>
+
+    <form action="/insert_workout" method="post">
+
+      <div>
+        <label for="workout_id_box">
+          Focus
+        </label>
+
+        <select name="query_movie_id">
+        
+        <% Workout.all.order(:title).each do |a_workout|%>
+        <option value="<%=a_workout.id%>">
+        <%=a_workout.title%>
+        </option>
+
+        <%end%>
+        
+        </select>
+
+        
+      </div>
+
+      <button>
+        Bookmark this movie
+      </button>
+    </form>
+    <form action="/insert_workout" method="post">
+      <div>
+        <label for="workout_box">
+          Workout
+        </label>
+
+        <input type="text" id="workout_box" name="query_workout">
+      </div>
+
+      <div>
+        <label for="image_box">
+          Image
+        </label>
+
+        <input type="text" id="image_box" name="query_image">
+      </div>
+
+      <div>
+        <label for="owner_id_box">
+          Owner
+        </label>
+
+        <input type="text" id="owner_id_box" name="query_owner_id">
+      </div>
+
+      <div>
+        <label for="time_box">
+          Time
+        </label>
+
+        <input type="datetime-local" id="time_box" name="query_time">
+      </div>
+
+      <div>
+        <label for="joins_count_box">
+          Joins count
+        </label>
+
+        <input type="text" id="joins_count_box" name="query_joins_count">
+      </div>
+
+      <button>
+        Create workout
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Workout
+        </th>
+
+        <th>
+          Image
+        </th>
+
+        <th>
+          Owner
+        </th>
+
+        <th>
+          Time
+        </th>
+
+        <th>
+          Joins count
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_workouts.each do |a_workout| %>
+      <tr>
+        <td>
+          <%= a_workout.id %>
+        </td>
+
+        <td>
+          <%= a_workout.workout %>
+        </td>
+
+        <td>
+          <%= a_workout.image %>
+        </td>
+
+        <td>
+          <%= a_workout.owner_id %>
+        </td>
+
+        <td>
+          <%= a_workout.time %>
+        </td>
+
+        <td>
+          <%= a_workout.joins_count %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_workout.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_workout.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/workouts/<%= a_workout.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
