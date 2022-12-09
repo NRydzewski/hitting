@@ -4,7 +4,9 @@ class JoinsController < ApplicationController
 
     @list_of_joins = matching_joins.order({ :created_at => :desc })
 
-    render({ :template => "workouts/join_workouts.html.erb" })
+    @my_joins=@list_of_joins.where({:user_id=>session.fetch(:user_id)})
+
+    render({ :template => "workouts/joined.html.erb" })
   end
 
   def show
@@ -46,11 +48,12 @@ class JoinsController < ApplicationController
   end
 
   def destroy
-    the_id = params.fetch("path_id")
-    the_join = Join.where({ :id => the_id }).at(0)
+    the_workout_id=params.fetch("query_workout_id")
+    the_user_id=params.fetch("query_user_id")
+    the_join=Join.where({:workout_id=>the_workout_id, :user_id=>the_user_id}).at(0)
 
     the_join.destroy
 
-    redirect_to("/", { :notice => "Join deleted successfully."} )
+    redirect_to("/", {:notice=>"You successfully left this workout session"})
   end
 end

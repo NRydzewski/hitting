@@ -17,6 +17,8 @@ class WorkoutsController < ApplicationController
 
     @list_of_joins = matching_joins.order({ :created_at => :desc })
 
+    @my_joins=@list_of_joins.where({:user_id=>session.fetch(:user_id)})
+
     render({ :template => "workouts/index.html.erb" })
   end
 

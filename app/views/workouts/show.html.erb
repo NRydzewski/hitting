@@ -1,86 +1,64 @@
 <div>
-  <div>
-    <h1>
-      Workout #<%= @the_workout.id %> details
-    </h1>
-
-    <div>
-      <div>
-        <a href="/workouts">
-          Go back
-        </a>
-      </div>
-
-      <div>
-        <a href="/delete_workout/<%= @the_workout.id %>">
-          Delete workout
-        </a>
-      </div>
-    </div>
-
-    <dl>
-      <dt>
+    <table class="table table bordered">
+    <thead>
+      <tr>
+      <th>
         Workout
-      </dt>
-      <dd>
+        </th>
+    <th>
+    Owner
+    </th>
+    <th>
+    Time
+    </th>
+    <th>
+    Joins
+    </th>
+    <th>
+    Created at
+    </th>
+    <th>
+    Updated at
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
         <%= @the_workout.workout %>
-      </dd>
+      </td>
+      <td>
+        <%= User.where(:id=>@the_workout.owner_id).first.username %>
+      </td>
 
-      <dt>
-        Image
-      </dt>
-      <dd>
-        <%= @the_workout.image %>
-      </dd>
-
-      <dt>
-        Owner
-      </dt>
-      <dd>
-        <%= @the_workout.owner_id %>
-      </dd>
-
-      <dt>
-        Time
-      </dt>
-      <dd>
+      <td>
         <%= @the_workout.time %>
-      </dd>
+      </td>
 
-      <dt>
-        Joins count
-      </dt>
-      <dd>
+      <td>
         <%= @the_workout.joins_count %>
-      </dd>
+      </td>
 
-      <dt>
-        Created at
-      </dt>
-      <dd>
+      <td>
         <%= time_ago_in_words(@the_workout.created_at) %> ago
-      </dd>
-
-      <dt>
-        Updated at
-      </dt>
-      <dd>
+      </td>
+      <td>
         <%= time_ago_in_words(@the_workout.updated_at) %> ago
-      </dd>
-    </dl>
+      </td>
+    </tr>
+    </tbody>
+    </table>
   </div>
 </div>
 
 <hr>
 
-
-<div>
-  <div>
-    <h2>
+<% if @the_workout.owner_id== session.fetch(:user_id)%>
+ <h2 class="m-3">
       Edit workout
     </h2>
 
-    <form action="/modify_workout/<%= @the_workout.id %>"  method="post" >
+    <form class="m-3" action="/modify_workout/<%= @the_workout.id %>"  method="post" >
       <div>
         <label for="workout_box">
           Workout
@@ -89,21 +67,7 @@
         <input type="text" id="workout_box" name="query_workout" value="<%= @the_workout.workout %>">
       </div>
 
-      <div>
-        <label for="image_box">
-          Image
-        </label>
 
-        <input type="text" id="image_box" name="query_image" value="<%= @the_workout.image %>">
-      </div>
-
-      <div>
-        <label for="owner_id_box">
-          Owner
-        </label>
-
-        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_workout.owner_id %>">
-      </div>
 
       <div>
         <label for="time_box">
@@ -114,19 +78,17 @@
          value="<%= @the_workout.time %>">
       </div>
 
-      <div>
-        <label for="joins_count_box">
-          Joins count
-        </label>
+      
 
-        <input type="text" id="joins_count_box" name="query_joins_count" value="<%= @the_workout.joins_count %>">
-      </div>
-
-      <button>
+      <button class="btn btn-success m-3">
         Update workout
       </button>
     </form>
   </div>
 </div>
+  <%else%>
+  
+    
+<%end%>
 
 <hr>

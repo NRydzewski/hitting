@@ -63,7 +63,7 @@
         </td>
         <td>
           <a class="btn btn-outline-success" href="/workouts/<%= a_workout.id %>">
-            Who's coming?
+            Details
           </a>
         </td>
         <td>
@@ -75,9 +75,16 @@
     <%if current_user_joins.count==0%>
   <form action="/join_workout" method="post">
   <input type="hidden" name="query_workout_id" value="<%=a_workout.id%>">
+  <input type="hidden" name="query_user_id" value="<%session.fetch(:user_id)%>">
   <button class="btn btn-success">Join</button>
+  </form>
   <%else%>
-  <a class="btn btn-outline-success" href="/delete_join/<%=a_workout.id%>">Leave</a>
+
+  <form action="/delete_join" method="post">
+  <input type="hidden" name="query_workout_id" value="<%=a_workout.id%>">
+  <input type="hidden" name="query_user_id" value="<%=session.fetch(:user_id)%>">
+  <button class="btn btn-outline-success">Leave</button>
+  </form>
   <%end%>
 <%else%>
   Sign in to join!

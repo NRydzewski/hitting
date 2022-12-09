@@ -37,7 +37,7 @@
         Chest & Abs
         </option>
         <option>
-        Cardio
+        Zumba
         </option>
         
         </select>
@@ -122,7 +122,7 @@
 
         <td>
           <a class="btn btn-outline-success" href="/workouts/<%= a_workout.id %>">
-            Who's coming?
+            Details
           </a>
         </td>
       </tr>
@@ -132,10 +132,76 @@
 <hr>
 <div>
 
+<h2 class="m-3"> Joining </h2>
+  <div>
+    <table class="table table-bordered m-3" border="1">
+    <thead class="thead-dark">
+      <tr>
 
-<a class="btn btn-success m-3" href="/joined">
-            Joined workouts
+        <th scope="col">
+          Workout
+        </th>
+
+        <th scope="col">
+          Leader
+        </th>
+
+        <th scope="col">
+          Time
+        </th>
+
+        <th scope="col">
+          Joins
+        </th>
+
+        <th scope="col">
+          Created at
+        </th>
+
+        <th scope="col">
+          Updated at
+        </th>
+
+        <th scope="col">
+        </th>
+      </tr>
+      </thead>
+      <% @my_joins.each do |a_join|%>
+      <tbody>
+      <% the_workout= Workout.where({:id=>a_join.workout_id}).at(0) %>
+      <tr>
+        <td>
+          <%= the_workout.workout %>
+        </td>
+
+        <td>
+          <%=User.where({:id=>the_workout.owner_id}).first.username%>
+        </td>
+
+        <td>
+          <%= the_workout.time %>
+        </td>
+
+        <td>
+          <%= the_workout.joins_count %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(the_workout.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(the_workout.updated_at) %> ago
+        </td>
+
+        <td>
+          <a class="btn btn-outline-success" href="/workouts/<%= the_workout.id %>">
+            Details
           </a>
+        </td>
+      </tr>
+      </tbody>
+      <% end %>
+    </table>
   </div>
 </div>
 

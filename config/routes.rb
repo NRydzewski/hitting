@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   get("/", { :controller => "workouts", :action => "homepage" })
   get("users/:id", { :controller => "application", :action => "userpage" })
   post("/join_workout", { :controller => "joins", :action => "create" })
-  #post("/delete_join", {:controller=>"joins", :action=>"destroy"})
-  get("/joined", {:controller =>"joins", :action=>"index"})
+  post("/delete_join", {:controller=>"joins", :action=>"destroy"})
+  get("/joins", {:controller =>"joins", :action=>"index"})
 
   # Routes for the Follow request resource:
 
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   # Routes for the Join resource:
 
   # CREATE
-  post("/insert_join", { :controller => "joins", :action => "create" })
+  #post("/insert_join", { :controller => "joins", :action => "create" })
           
   # READ
   get("/joins", { :controller => "joins", :action => "index" })
@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   post("/modify_join/:path_id", { :controller => "joins", :action => "update" })
   
   # DELETE
-  get("/delete_join/:path_id", { :controller => "joins", :action => "destroy" })
+  #post("/delete_join/:path_id", { :controller => "joins", :action => "destroy" })
 
   #------------------------------
 
