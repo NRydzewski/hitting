@@ -1,8 +1,21 @@
 class WorkoutsController < ApplicationController
+  def homepage
+    matching_workouts = Workout.all
+
+    @list_of_workouts = matching_workouts.order({ :created_at => :desc })
+
+    render({ :template => "index.html.erb" })
+  end
   def index
     matching_workouts = Workout.all
 
     @list_of_workouts = matching_workouts.order({ :created_at => :desc })
+
+    @my_workouts = @list_of_workouts.where({:owner_id=>session.fetch(:user_id)})
+
+    matching_joins = Join.all
+
+    @list_of_joins = matching_joins.order({ :created_at => :desc })
 
     render({ :template => "workouts/index.html.erb" })
   end
@@ -20,10 +33,8 @@ class WorkoutsController < ApplicationController
   def create
     the_workout = Workout.new
     the_workout.workout = params.fetch("query_workout")
-    the_workout.image = params.fetch("query_image")
-    the_workout.owner_id = params.fetch("query_owner_id")
+    the_workout.owner_id=session.fetch(:user_id)
     the_workout.time = params.fetch("query_time")
-    the_workout.joins_count = params.fetch("query_joins_count")
 
     if the_workout.valid?
       the_workout.save

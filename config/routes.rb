@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-
-
+  get("/", { :controller => "workouts", :action => "homepage" })
+  get("users/:id", { :controller => "application", :action => "userpage" })
+  post("/join_workout", { :controller => "joins", :action => "create" })
+  #post("/delete_join", {:controller=>"joins", :action=>"destroy"})
+  get("/joined", {:controller =>"joins", :action=>"index"})
 
   # Routes for the Follow request resource:
 

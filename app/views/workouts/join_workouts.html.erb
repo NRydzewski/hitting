@@ -1,0 +1,139 @@
+<h2> Joining </h2>
+    <table border="1">
+    <tr>
+
+        <th>
+          Workout
+        </th>
+
+        <th>
+          Leader
+        </th>
+
+        <th>
+          Time
+        </th>
+
+        <th>
+          Joins
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+      <% @list_of_joins.each do |a_join| %>
+      <tr>
+
+        <td>
+        <%=Workout.where({:id=>a_join.workout_id}).workout%>
+        </td>
+
+        <td>
+          <%=Workout.where({:id=>a_join.workout_id}).first.username%>
+        </td>
+
+        <td>
+        <%=Workout.where({:id=>a_join.workout_id}).time%>
+        </td>
+
+        <td>
+          <%= a_join.joins_count %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_join.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_join.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/workouts/<%= a_join.id %>">
+            Who's coming?
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+
+
+        <td>
+        <%=Workout.where({:id=>a_join.workout_id}).workout%>
+        </td>
+
+        <td>
+          <%=Workout.where({:id=>a_join.workout_id}).first.username%>
+        </td>
+
+        <td>
+        <%=Workout.where({:id=>a_join.workout_id}).time%>
+        </td>
+
+        <td>
+          <%= a_join.joins_count %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_join.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_join.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/workouts/<%= a_join.id %>">
+            Who's coming?
+          </a>
+        </td>
+      </tr>
+
+
+<h2> Joining </h2>
+    <table border="1">
+    <tr>
+
+        <th>
+          Workout
+        </th>
+
+        <th>
+          Leader
+        </th>
+
+        <th>
+          Time
+        </th>
+
+        <th>
+          Joins
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+      <% @list_of_joins.each do |a_join| %>
+      <tr>
+      <%workout=a_join.workout_id%>
+      <%workout_each=Workout.where({:id=>workout})%>
+      <td>
+      <%=workout_each.workout%>
+      </td>
+      </tr>
+      <% end %>
+    </table>

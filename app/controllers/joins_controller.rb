@@ -4,7 +4,7 @@ class JoinsController < ApplicationController
 
     @list_of_joins = matching_joins.order({ :created_at => :desc })
 
-    render({ :template => "joins/index.html.erb" })
+    render({ :template => "workouts/join_workouts.html.erb" })
   end
 
   def show
@@ -19,14 +19,14 @@ class JoinsController < ApplicationController
 
   def create
     the_join = Join.new
-    the_join.user_id = params.fetch("query_user_id")
-    the_join.workout_id = params.fetch("query_workout_id")
+    the_join.user_id = session.fetch(:user_id)
+    the_join.workout_id=params.fetch("query_workout_id")
 
     if the_join.valid?
       the_join.save
-      redirect_to("/joins", { :notice => "Join created successfully." })
+      redirect_to("/", { :notice => "Join created successfully." })
     else
-      redirect_to("/joins", { :alert => the_join.errors.full_messages.to_sentence })
+      redirect_to("/", { :alert => "Error occurred while trying to join" })
     end
   end
 
@@ -51,6 +51,6 @@ class JoinsController < ApplicationController
 
     the_join.destroy
 
-    redirect_to("/joins", { :notice => "Join deleted successfully."} )
+    redirect_to("/", { :notice => "Join deleted successfully."} )
   end
 end

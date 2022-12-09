@@ -1,2 +1,88 @@
-<h1>Hi</h1>
-<p><%= notice%></p>
+  <p><%= notice %>
+  </p>
+  <p><%= alert %>
+  </p>
+<h1 class="m-3">Workout Feed</h1>
+<table class="table table-bordered m-3" border="1">
+      <tr>
+
+        <th>
+          Workout
+        </th>
+
+        <th>
+          Leader
+        </th>
+
+        <th>
+          Time
+        </th>
+
+        <th>
+          Joins
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_workouts.each do |a_workout| %>
+      <tr>
+
+        <td>
+          <%= a_workout.workout %>
+        </td>
+
+        <td>
+          <%=User.where({:id=>a_workout.owner_id}).first.username%>
+        </td>
+
+        <td>
+          <%= a_workout.time %>
+        </td>
+
+        <td>
+          <%= a_workout.joins_count %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_workout.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_workout.updated_at) %> ago
+        </td>
+        <td>
+          <a class="btn btn-outline-success" href="/workouts/<%= a_workout.id %>">
+            Who's coming?
+          </a>
+        </td>
+        <td>
+    <%current_user_joins= Join.where({:workout_id=>a_workout.id, :user_id=>session.fetch(:user_id)})%>
+
+<%the_join=current_user_joins.at(0)%>
+
+<% if session.fetch(:user_id)!=nil%>
+    <%if current_user_joins.count==0%>
+  <form action="/join_workout" method="post">
+  <input type="hidden" name="query_workout_id" value="<%=a_workout.id%>">
+  <button class="btn btn-success">Join</button>
+  <%else%>
+  <a class="btn btn-outline-success" href="/delete_join/<%=a_workout.id%>">Leave</a>
+  <%end%>
+<%else%>
+  Sign in to join!
+  <%end%>
+        </td>
+      </tr>
+      <% end %>
+    </table>

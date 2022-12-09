@@ -14,4 +14,8 @@
 class Workout < ApplicationRecord
   belongs_to(:owner, { :required => true, :class_name => "User", :foreign_key => "owner_id", :counter_cache => :own_workouts_count })
   has_many(:joins, { :class_name => "Join", :foreign_key => "workout_id", :dependent => :destroy })
+
+  def joins
+    return Join.where({ :workout_id => self.id })
+  end
 end

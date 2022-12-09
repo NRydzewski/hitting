@@ -1,149 +1,108 @@
 <div>
   <div>
-    <h1>
-      x's Workouts
+    <h1 class="m-3">
+      <%=User.where({:id=>session.fetch(:user_id)}).first.username%>'s Workouts
     </h1>
   </div>
 </div>
 
 <hr>
-
 <div>
   <div>
-    <h2>
+    <h2 class="m-3">
       Add a new workout
     </h2>
-
+    
     <form action="/insert_workout" method="post">
-
       <div>
-        <label for="workout_id_box">
+        <label for="workout_id_box" class="m-3">
           Focus
         </label>
 
-        <select name="query_movie_id">
+        <select class="btn btn-outline-success dropdown-toggle" name="query_workout">
         
-        <% Workout.all.order(:title).each do |a_workout|%>
-        <option value="<%=a_workout.id%>">
-        <%=a_workout.title%>
+        <option>
+        Chest & Triceps
         </option>
-
-        <%end%>
+        <option>
+        Back & Biceps
+        </option>
+        <option>
+        Legs & Shoulders
+        </option>
+        <option>
+        Cardio
+        </option>
+        <option>
+        Chest & Abs
+        </option>
+        <option>
+        Cardio
+        </option>
         
         </select>
-
-        
-      </div>
-
-      <button>
-        Bookmark this movie
-      </button>
-    </form>
-    <form action="/insert_workout" method="post">
-      <div>
-        <label for="workout_box">
-          Workout
-        </label>
-
-        <input type="text" id="workout_box" name="query_workout">
-      </div>
+        </div>
 
       <div>
-        <label for="image_box">
-          Image
-        </label>
-
-        <input type="text" id="image_box" name="query_image">
-      </div>
-
-      <div>
-        <label for="owner_id_box">
-          Owner
-        </label>
-
-        <input type="text" id="owner_id_box" name="query_owner_id">
-      </div>
-
-      <div>
-        <label for="time_box">
+        <label for="time_box" class="m-3">
           Time
         </label>
 
         <input type="datetime-local" id="time_box" name="query_time">
       </div>
 
-      <div>
-        <label for="joins_count_box">
-          Joins count
-        </label>
-
-        <input type="text" id="joins_count_box" name="query_joins_count">
-      </div>
-
-      <button>
-        Create workout
+      <button class="btn btn-outline-success m-3">
+        Let's hit it
       </button>
     </form>
   </div>
 </div>
-
 <hr>
 <div>
+<h2 class="m-3"> Leading </h2>
   <div>
-    <table border="1">
+    <table class="table table-bordered m-3" border="1">
+    <thead class="thead-dark">
       <tr>
-        <th>
-          ID
-        </th>
 
-        <th>
+        <th scope="col">
           Workout
         </th>
 
-        <th>
-          Image
+        <th scope="col">
+          Leader
         </th>
 
-        <th>
-          Owner
-        </th>
-
-        <th>
+        <th scope="col">
           Time
         </th>
 
-        <th>
-          Joins count
+        <th scope="col">
+          Joins
         </th>
 
-        <th>
+        <th scope="col">
           Created at
         </th>
 
-        <th>
+        <th scope="col">
           Updated at
         </th>
 
-        <th>
+        <th scope="col">
         </th>
       </tr>
-
-      <% @list_of_workouts.each do |a_workout| %>
+      </thead>
+      <% @my_workouts.each do |a_workout|%>
+      <tbody>
       <tr>
-        <td>
-          <%= a_workout.id %>
-        </td>
 
         <td>
           <%= a_workout.workout %>
         </td>
 
         <td>
-          <%= a_workout.image %>
-        </td>
-
-        <td>
-          <%= a_workout.owner_id %>
+          <%=User.where({:id=>a_workout.owner_id}).first.username%>
         </td>
 
         <td>
@@ -162,13 +121,21 @@
         </td>
 
         <td>
-          <a href="/workouts/<%= a_workout.id %>">
-            Show details
+          <a class="btn btn-outline-success" href="/workouts/<%= a_workout.id %>">
+            Who's coming?
           </a>
         </td>
       </tr>
+      </tbody>
       <% end %>
     </table>
+<hr>
+<div>
+
+
+<a class="btn btn-success m-3" href="/joined">
+            Joined workouts
+          </a>
   </div>
 </div>
 

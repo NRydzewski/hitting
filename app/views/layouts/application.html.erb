@@ -13,38 +13,46 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
 
+    <link rel="stylesheet" href="/css/my_styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
   </head>
 
   <body>
-   <ul>
+   <div class="btn-group btn-group-toggle m-3" data-toggle="buttons">
       <% if session.fetch(:user_id) %>
-        <li>
-          <a href="/users/<%=@current_user.id%>">
+          <a class="btn btn-success" href="/edit_user_profile">
             <%=User.where({:id=>session.fetch(:user_id)}).first.username%>
-          </a>
-        </li>
-        <li>
-          <a href="/user_sign_out">
+            </a>
+        
+        
+          <a class="btn btn-outline-success" href="/user_sign_out">
             Sign out
           </a>
-        </li>
-              <li>
-        <a href="/workouts">
+          
+        
+        <a class="btn btn-outline-success" href="/workouts">
           My Workouts
         </a>
-      </li>
+      
+            
+        <a class="btn btn-outline-success" href="/">
+          Home
+        </a>
+      
       <%else%>
-        <li>
-          <a href="/user_sign_in">
+        
+          <a class="btn btn-outline-success" href="/user_sign_in">
             Sign in
           </a>
-        </li>
-        <li>
-          <a href="/user_sign_up">
+        
+        
+          <a class="btn btn-outline-success" href="/user_sign_up">
             Sign up
           </a>
-        </li>
+        
       <%end %>
+      </div>
     <%= yield %>
   </body>
 </html>
